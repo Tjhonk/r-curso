@@ -1,0 +1,12 @@
+class: center, middle, inverse
+# Gracias!
+
+Diapositivas creadas mediante [**xaringan**](https://github.com/yihui/xaringan).
+
+## Para descargar los actuales y futuros materiales
+
+Ejecutar el siguiente comando via `git bash` 
+
+> git clone https://github.com/TJhon/R-curso.git
+
+Las diapositivas estan en el siguiente link https://github.com/TJhon/R-curso

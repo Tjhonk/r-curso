@@ -1,0 +1,227 @@
+/* middelbur para el estidlo de texto, inverse como normal
+fc colore diseno */
+
+
+/* Esta parte para el contenido de los slides en foma normal */
+.remark-slide-content {
+    background-color: #000000;
+    color: #ffffff;
+    /* lo siguiente para un borde en la parte inferior de color naranja algo */
+    border-bottom: 5px solid #ff5f0f;
+    /* Fondo del texto normal */
+    font-size: 30px;
+    /* Ancho permitido para anticipar una linea */
+    font-weight: 300;
+    line-height: 1.0;
+    /* Bordes de la diapositiva */
+    padding: 1em 3em 1em 3em;
+}
+/* Titulos ys subtitulos */
+h1, h2, h3, h4 {
+    margin-top: 0;
+    padding-top: 0.5em;
+    font-family: 'Oswald';
+    font-weight: 400;
+    margin-left: 0;
+  }
+
+/* Inverse slide */
+
+.inverse {
+    background-color: #ffffff;
+    color: #121316;
+}
+/* Titulo de la diapositiva */
+.title-slide {
+    background-color: #000000;
+}
+h1 {
+    color: #ff5f0f;
+    font-size: 65px;
+    border: 0px;
+    margin: 0px;
+}
+h2 {
+    color: #f06723;
+    font-size: 55px;
+    border: 0px;
+    margin: 0px;
+}
+
+h3 {
+    color: #f7844a;
+    font-size: 45px;
+    border: 0px;
+    margin: 0px;
+}
+
+h4 {
+    color: #c1c1c1;
+    font-size: 35px;
+    border: 0px;
+    margin: 0px;
+}
+
+.title-slide h1 {
+  padding-top: 33%;
+  text-align: middle;
+  padding-bottom: 3%;
+  margin-bottom: 3%;
+}
+
+.title-slide h2, .title-slide h3, .title-slide h4{
+  text-align: left;
+  padding-top: 0%;
+  margin-top: 0%;
+}
+
+/* Numero de diapositiva */
+.remark-slide-number {
+    font-size: 10pt;
+    font-family: 'EB Garamond';
+    color: #FAFAFA;
+    opacity: 1;
+}
+.inverse .remark-slide-number {
+    font-size: 10pt;
+    font-family: 'EB Garamond';
+    color: #272822;
+    opacity: 1;
+}
+/* codigo e inlines */
+code {
+    color: #ffffff;
+    border-radius: 0.3px;
+    /* background-color: #333333; */
+    background-color: #ffffff;
+}
+.remark-inline-code {
+    color: #000000;
+    border-radius: 0px;
+    padding: 0;
+    /* Este es el fondo del codigo */
+    background: #e0e0e0;
+    /* background: #333333; */
+}
+/* `` dentro de es comando entexto normal */
+.inverse .remark-inline-code {
+    background: #f7844a;
+    color: #ffffff;
+}
+  /*El color de lo que resalta dentro de los codigos*/
+.remark-code-line-highlighted {
+    background-color: #b3c7f3;
+    border-radius: 3px;
+}
+  /* pie de pagina en comillas */
+.footnote {
+    position: absolute;
+    bottom: 3em;
+    padding-right: 4em;
+    font-size: 20px;
+}
+/* Separacion de columnas */
+.left-column {
+    /* color: #777; */
+    width: 20%;
+    height: 92%;
+    float: left;
+}
+/* No se que hace */
+/* .left-column h2:last-of-type, .left-h3:last-child {
+  color: #000;
+} */
+/* separacion para la derecha */
+.right-column {
+  width: 78%;
+  float: right;
+  padding-top: 1em;
+}
+.middle-column {
+  width: 90%;
+  float: center;
+}
+
+
+/* pull reparte 50 50 */
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ * {
+    clear: both;
+}
+/* Establecer el maximo de tamno de la figuras insertadas */
+img, video, iframe {
+    max-width: 90%;
+}
+blockquote {
+    border-left: solid 15px #f7844a;
+    padding-left: 1em;
+}
+
+.remark-slide table {
+    margin: auto;
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+  }
+.remark-slide table thead th { border-bottom: 1px solid #000; }
+  th, td { padding: 5px; }
+.remark-slide thead, .remark-slide tfoot, remark-slide tr:nth-child(even) {background: #000000, }
+
+
+/* pie de pagina 
+div.my-footer {
+    border-top: 1px solid var(--opal-gray);
+    position: absolute;
+    bottom: 0px;
+    height: 35px;
+    width: 90%;
+}
+div.my-footer span {
+    font-size: 12pt;
+    position: absolute;
+    color: #333333;
+    bottom: 10px;
+}
+div.my-footer a {
+    font-size: 12pt;
+    color: #333333;
+}*/
+
+
+@page { margin: 0; }
+@media print {
+  .remark-slide-scaler {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1) !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+/*
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  top: 0;
+  height: 4px;
+  display: block;
+  left: 0;
+  right: 0;
+  color: #ff5f0f;
+}*/
+
+.center-left {
+  position:          relative;
+  top:               50%;
+  transform:         translateY(50%);
+}
+.center-right {
+  position:          relative;
+  top:               50%;
+  transform:         translateY(10%);
+}
