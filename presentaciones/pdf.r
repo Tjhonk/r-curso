@@ -1,9 +1,9 @@
 # Creacion de pdf de las presentaciones
 library(here)
-library(purrr)
+
 
 pdf <- list.files(here("presentaciones"), pattern = "rmd$") 
-
+pdf
 ## Version 1
 for(i in pdf){
   pagedown::chrome_print(here("presentaciones", i))
