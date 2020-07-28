@@ -1,0 +1,13 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Mi R markdown 
+
+```{r}
+# insertar el codigo en esta parte sombreada de ahora en adelante llamado chuck
+plot(cars)
+```
+
+Mucho texto aca abajo.
