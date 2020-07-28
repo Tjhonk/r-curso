@@ -47,7 +47,3 @@ doc/**/*.pdf
 # Reomendacion final
 
 Si se quiere explorar todo el entorno a profundidad, el libro **Pro Git** esta disponible gratis en el siguiente [link](https://git-scm.com/book/en/v2) 
-
----
-
-### Cambios para ver 
