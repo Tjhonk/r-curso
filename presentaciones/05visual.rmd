@@ -1,0 +1,507 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    seal: false
+    css: ["moi1.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+```{r child = "complementarios/set.Rmd"}
+```
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(eval = T)
+```
+
+.pull-left[
+.center-left[
+# Tidyverse
+# GGplot2
+
+Jhon
+
+Fecha: `r Sys.Date()`
+]
+]
+.pull-right[
+![](imagenes/me.png)
+]
+
+---
+
+# GGplot2
+
+--
+
+## (Grammar of Graphics)plot2
+--
+```{r}
+library(ggplot2)
+```
+
+---
+.pull-left[
+## Elementos principales
+Elemento|Descripcion
+--------|--------
+`Data`| La base de datos a graficar
+`aes`tetics| Elementos presente en la grafica
+`geom`metries | Elemtnos visuales de la grafica
+]
+--
+.pull-right[
+## Todos los Elementos
+
+Elemento|Descripcion
+--------|--------
+`Data`| La base de datos a graficar
+`aes`tetics| Elementos presente en la grafica
+`geom`metries | Elemtnos visuales de la grafica
+`facet`s | Pequenos graficos
+`stat`istics| Estadisticos
+`coor`dinates| Espacio donde se grafica
+`theme`s| Estetica de las figuras
+]
+
+--
+
+Todos estos elementos pueden ser agregados con `+`, y algunos de ellos pueden estar dentro de otros elementos, el formato basico se puede describir de la siguiente manera y puede ser reasignado como un objeto
+
+```{r, eval = F}
+ggplot(data = data, aes(x = x, y = y)) + 
+  geom_forma() +
+  stat_subelemeto() + 
+  aes(x = x, y = y) + 
+  theme_mitheme()
+```
+
+
+---
+class: middle
+
+.pull-left[
+## Los datos
+```{r}
+# install.packages("palmerpenguins")
+library(palmerpenguins) # Cargar la libreria 
+head(penguins)
+```
+]
+.pull-right[
+## Lo que se quiere
+```{r, echo = F, warning=F, message=F}
+flipper_bill <- ggplot(data = penguins,
+                         aes(x = flipper_length_mm,
+                             y = bill_length_mm)) +
+  geom_point(aes(color = species, 
+                 shape = species),
+             size = 3,
+             alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, aes(color = species)) +
+  theme_minimal() +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Titulo",
+       subtitle = "Subtitulo",
+       x = "Algo en el eje de la `x`",
+       y = "Algo en el eje de las y",
+       color = "Especies de pinguinos",
+       shape = "Especies de pinguinos") +
+  theme(legend.position = c(0.85, 0.15),
+        legend.background = element_rect(fill = "white", color = NA),
+        plot.title.position = "plot",
+        plot.caption = element_text(hjust = 0, face= "italic"),
+        plot.caption.position = "plot")
+flipper_bill
+```
+]
+
+
+---
+class: center, middle
+# Exploremos las partes mencionadas
+
+---
+.pull-left[
+## Codigo generador 
+Primer elemento, la base de datos
+```{r data, fig.show='hide'}
+ggplot(data = penguins)
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data', echo = FALSE}
+```
+]
+
+---
+.pull-left[
+## Codigo generador 
+
+Estetica
+
+```{r data1, fig.show='hide'}
+ggplot(data = penguins) +
+  aes(x = flipper_length_mm, #<<
+      y = bill_length_mm) #<<
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data1', echo = FALSE}
+```
+]
+---
+.pull-left[
+## Codigo generador 
+
+Grafico de puntos!
+
+```{r data2, fig.show='hide'}
+ggplot(data = penguins) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm) + 
+  geom_point() #<<
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data2', echo = FALSE}
+```
+]
+
+---
+.pull-left[
+## Codigo generador 
+
+Un modelo 
+
+```{r data3, fig.show='hide'}
+ggplot(data = penguins) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm) + 
+  geom_point() + 
+  geom_smooth()#<<
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data3', echo = FALSE}
+```
+]
+---
+.pull-left[
+## Codigo generador 
+
+Minimos cuadrados ordinarios
+```{r data4, fig.show='hide'}
+ggplot(data = penguins) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm) + 
+  geom_point() + 
+  geom_smooth(method= "lm") #<<
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data4', echo = FALSE}
+```
+]
+
+
+
+---
+.pull-left[
+## Codigo generador 
+
+Un poco de color `color`, y formas `shape` diferentes para las especies
+
+```{r data5, fig.show='hide'}
+ggplot(data = penguins) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm,
+      color = species, #<< 
+      shape = species) +  #<<
+  geom_point() + 
+  geom_smooth(method = "lm") 
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data5', echo = FALSE}
+```
+]
+
+
+---
+.pull-left[
+## Codigo generador 
+
+No me gusta los errores estandar `se = FALSE`
+
+```{r data7, fig.show='hide'}
+ggplot(data = penguins) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm,
+      color = species, 
+      shape = species) +
+  geom_point() + 
+  geom_smooth(method = "lm", 
+              se = F) #<< 
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data7', echo = FALSE}
+```
+]
+
+---
+.pull-left[
+## Codigo generador 
+
+Muy pequeno!, no se notan las formas `size`, pero si se hacen mas grandes se sobreponen `alpha` 
+
+```{r data8, fig.show='hide'}
+ggplot(data = penguins) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm,
+      color = species, 
+      shape = species) +
+  geom_point(
+    size = 3, #<< 
+    alpha = 0.8#<< 
+  ) + 
+  geom_smooth(method = "lm", 
+              se = F) 
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data8', echo = FALSE}
+```
+]
+---
+.pull-left[
+## Codigo generador 
+
+El fondo no me gusta `theme_`
+
+```{r data10, fig.show='hide'}
+ggplot(data = penguins) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm,
+      color = species, 
+      shape = species) +
+  geom_point(size = 3, alpha = 0.8) + 
+  geom_smooth(method = "lm", 
+              se = F) +
+  theme_minimal()#<<
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data10', echo = FALSE}
+```
+]
+
+---
+.pull-left[
+## Codigo generador 
+
+Mucho codigo ya cansa!, mejor es un objeto
+
+```{r data11, fig.show='hide'}
+mi_grafico <- ggplot(data = penguins) + #<<
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm,
+      color = species, 
+      shape = species) +
+  geom_point(size = 3, alpha = 0.8) + 
+  geom_smooth(method = "lm", 
+              se = F) +
+  theme_minimal() 
+
+mi_grafico #<<
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data11', echo = FALSE}
+```
+]
+
+
+---
+.pull-left[
+## Codigo generador 
+
+Podemos seguir agregando con total normalidad, ahora para no perdernos, definamos los titulos, subtitulos..etc. Todo esto en `labs`, todos sus elementos son intuitivos si lo traducimos al espanol.
+
+```{r data12, fig.show='hide'}
+lab_grafico <- mi_grafico + 
+    labs(
+     title = "Titulo",
+     subtitle = "Subtitulo",
+     x = "Algo en el eje de la `x`",
+     y = "Algo en el eje de las y",
+     color = "Especies de pinguinos",
+     shape = "Especies de pinguinos") 
+lab_grafico
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data12', echo = FALSE}
+```
+]
+
+
+---
+.pull-left[
+## Codigo generador 
+
+Ahora colores personalizados.
+
+```{r data13, fig.show='hide'}
+lab_grafico + 
+  scale_color_manual(#<<
+    values = c(#<<
+      "darkorange",#<<
+      "purple",#<<
+      "cyan4")) #<<
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data13', echo = FALSE}
+```
+]
+---
+.pull-left[
+## Codigo generador 
+
+Ahora la posicion de la leyenda
+
+```{r data14, fig.show='hide'}
+lab_grafico + 
+  scale_color_manual(
+    values = c(
+      "darkorange",
+      "purple",
+      "cyan4")) + 
+    theme(legend.position = c(0.85, 0.15))#<<
+```
+
+]
+.pull-right[
+## Resultado
+```{r ref.label = 'data14', echo = FALSE}
+```
+]
+---
+class: middle
+# Uff
+
+Que cansado fue eso, pero puede que sea la ultima vez que se tenga que repetir todos esos paso 
+---
+
+.pull-left[
+Primero definamos los elemtos principales que se quiere presentar
+
+```{r , fig.show='hide'}
+mi_grafico <- ggplot(data = penguins) + 
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm,
+      color = species, 
+      shape = species) +
+  geom_point(size = 3, alpha = 0.8) + 
+  geom_smooth(method = "lm", 
+              se = F) +
+  theme_minimal() 
+```
+
+]
+.pull-right[
+
+Luego elementos de estetica
+
+```{r , fig.show='hide'}
+estetica <- labs(
+     title = "Titulo",
+     subtitle = "Subtitulo",
+     x = "Algo en el eje de la `x`",
+     y = "Algo en el eje de las y",
+     color = "Especies de pinguinos",
+     shape = "Especies de pinguinos") + 
+    scale_color_manual(
+    values = c(
+      "darkorange",
+      "purple",
+      "cyan4")) + 
+    theme(legend.position = c(0.85, 0.15))
+```
+
+]
+---
+.pull-left[
+## Facil
+```{r  include=FALSE}
+final <- flipper_bill
+```
+
+```{r, eval = F}
+final <- mi_grafico + estetica
+```
+
+```{r final, fig.show='hide',}
+final
+```
+
+]
+.pull-right[
+# Final
+```{r, ref.label = 'final', echo = FALSE}
+
+```
+
+]
+
+
+---
+
+# No se olvida a los autores de la `Data`
+
+Adélie penguins: 
+
++ Palmer Station Antarctica LTER and K. Gorman, 2020. Structural size measurements and isotopic signatures of foraging among adult male and female Adélie penguins (*Pygoscelis adeliae*) nesting along the Palmer Archipelago near Palmer Station, 2007-2009 ver 5. Environmental Data Initiative. https://doi.org/10.6073/pasta/98b16d7d563f265cb52372c8ca99e60f (Accessed 2020-06-08).
+
+Gentoo penguins:
+
++ Palmer Station Antarctica LTER and K. Gorman, 2020. Structural size measurements and isotopic signatures of foraging among adult male and female Gentoo penguin (*Pygoscelis papua*) nesting along the Palmer Archipelago near Palmer Station, 2007-2009 ver 5. Environmental Data Initiative. https://doi.org/10.6073/pasta/7fca67fb28d56ee2ffa3d9370ebda689 (Accessed 2020-06-08).
+
+Chinstrap penguins: 
+
++ Palmer Station Antarctica LTER and K. Gorman, 2020. Structural size measurements and isotopic signatures of foraging among adult male and female Chinstrap penguin (*Pygoscelis antarcticus*) nesting along the Palmer Archipelago near Palmer Station, 2007-2009 ver 6. Environmental Data Initiative. https://doi.org/10.6073/pasta/c14dfcfada8ea13a17536e73eb6fbe9e (Accessed 2020-06-08).
+---
+
+```{r child="complementarios/gracias.rmd"}
+
+```
+

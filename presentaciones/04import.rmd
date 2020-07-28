@@ -1,0 +1,144 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    seal: false
+    css: ["moi1.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+```{r child = "complementarios/set.Rmd"}
+```
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(eval = T)
+```
+
+.pull-left[
+.center-left[
+# R
+# Importar Datos
+
+Jhon
+
+Fecha: `r Sys.Date()`
+]
+]
+.pull-right[
+![](imagenes/me.png)
+]
+
+---
+
+## Antes de emprezar 
+
+.middle-column[
+![](https://i1.wp.com/r-tastic.co.uk/post/2018-03-18-prime-hints-forrrunning-a-data-project-in-r_files/jb_tweet.png?zoom=1.125&w=578&ssl=1)
+]
+
+---
+
+# Recordatorio
+## Trabajar con proyectos 
+
+- Cada análisis como proyecto
+  - Carpeta con todos los archivos relevantes
+- Escrituras R escritas con la suposición de:
+  1.Sesión limpia
+  1. Directorio de trabajo = directorio del proyecto
+- Crea todo lo que necesita (mediante comando si es posible)
+
+---
+
+class: center, middle
+
+# Here
+
+
+---
+## Problema de `getwd` y `setwd`
+
+- get: obtener
+- set: configurar/establecer
+- w: working 
+- d: directory
+
+```{r}
+getwd()
+paste(getwd(), "/datos", sep = "") 
+```
+
+Esto funcion si los datos estan en una carpeta dentro del entorno del trabajo, pero que se hace si se tiene en una carpeta anterior?
+
+```{r eval=F}
+setwd(v) # no funciona en un markdown
+```
+---
+## Here
+
+```{r}
+library(here)
+here()
+here("datos")
+here("datos", "ventas.csv")
+here("datos", "ventas.dta")
+```
+---
+
+# La familia 
+
+
+`Package`                   | Tipo de documento o base de datos
+------------------------- | -----------------------------------
+readr                     | Extensiones (.csv, .tsv, etc.)
+readxl                    | Documentos excel  (.xls, .xlsx)
+haven                     | SPSS, Stata, y SAS 
+googlesheets, googledrive | Google Sheets y Google Drive
+feather                   | Datos compartidos entre R y Python
+rvest                     | Paginas web (web scraping)
+sparklyr                  | Base de datos en spark
+jsonlite                  | json
+xml2                      | xml
+httr                      | web API's
+DBI                       | databases
+
+
+---
+## Forma de uso 
+
+1. Identificar la extension 
+2. Cargar el paquete y `here()`
+3. Identificar la carpeta contenedora en el proyecto
+4. Usar la libreria `here` para cargar la direccion del archivo
+
+```{r, eval = F}
+library(here)
+library(readxl)
+# lo siguieente seria para un excel con caraceristicas normales
+datos <- read_xlsx(here("datos", "base.xlsx"))
+```
+---
+
+O podemos definir la existencia de valores perdido o mas conocidos como `nas`
+```{r, eval = F}
+# valores perdidos como el  elemento `.`
+datos_1 <- readxl::read_xlsx(here("datos", "base.xlsx"), na = ".")
+# valores perdidos como el  elemento "espacio'
+datos_1 <- readxl::read_xlsx(here("datos", "base.xlsx"), na = " ")
+```
+---
+
+Por el momento esta es la version no aplicada, por el momento busco datos que no pesen mucho y que puedan ser utilizados para los posteriores tutoriales. 
+
+--
+
+Por el momento solo es el codigo, perdon.
+
+---
+```{r child="complementarios/gracias.rmd"}
+
+```
+
